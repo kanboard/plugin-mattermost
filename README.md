@@ -1,6 +1,8 @@
 Mattermost plugin for Kanboard
 ==============================
 
+[![Build Status](https://travis-ci.org/kanboard/plugin-mattermost.svg?branch=master)](https://travis-ci.org/kanboard/plugin-mattermost)
+
 Receive Kanboard notifications on Mattermost.
 
 Author
