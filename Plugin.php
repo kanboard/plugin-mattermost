@@ -19,10 +19,11 @@ class Plugin extends Base
         $this->template->hook->attach('template:project:integrations', 'mattermost:project/integration');
 
         $this->projectNotificationType->setType('mattermost', t('Mattermost'), '\Kanboard\Plugin\Mattermost\Notification\Mattermost');
+    }
 
-        $this->on('app.bootstrap', function($container) {
-            Translator::load($container['config']->getCurrentLanguage(), __DIR__.'/Locale');
-        });
+    public function onStartup()
+    {
+        Translator::load($this->language->getCurrentLanguage(), __DIR__.'/Locale');
     }
 
     public function getPluginDescription()
@@ -37,7 +38,7 @@ class Plugin extends Base
 
     public function getPluginVersion()
     {
-        return '1.0.1';
+        return '1.0.2';
     }
 
     public function getPluginHomepage()
