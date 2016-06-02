@@ -17,13 +17,12 @@ class Plugin extends Base
     {
         $this->template->hook->attach('template:config:integrations', 'mattermost:config/integration');
         $this->template->hook->attach('template:project:integrations', 'mattermost:project/integration');
-
-        $this->projectNotificationType->setType('mattermost', t('Mattermost'), '\Kanboard\Plugin\Mattermost\Notification\Mattermost');
+        $this->projectNotificationTypeModel->setType('mattermost', t('Mattermost'), '\Kanboard\Plugin\Mattermost\Notification\Mattermost');
     }
 
     public function onStartup()
     {
-        Translator::load($this->language->getCurrentLanguage(), __DIR__.'/Locale');
+        Translator::load($this->languageModel->getCurrentLanguage(), __DIR__.'/Locale');
     }
 
     public function getPluginDescription()
@@ -38,7 +37,7 @@ class Plugin extends Base
 
     public function getPluginVersion()
     {
-        return '1.0.2';
+        return '1.0.3';
     }
 
     public function getPluginHomepage()

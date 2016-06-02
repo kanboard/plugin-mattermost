@@ -3,7 +3,7 @@
 namespace Kanboard\Plugin\Mattermost\Notification;
 
 use Kanboard\Core\Base;
-use Kanboard\Notification\NotificationInterface;
+use Kanboard\Core\Notification\NotificationInterface;
 
 /**
  * Mattermost Notification
@@ -35,8 +35,8 @@ class Mattermost extends Base implements NotificationInterface
      */
     public function notifyProject(array $project, $event_name, array $event_data)
     {
-        $webhook = $this->projectMetadata->get($project['id'], 'mattermost_webhook_url', $this->config->get('mattermost_webhook_url'));
-        $channel = $this->projectMetadata->get($project['id'], 'mattermost_webhook_channel');
+        $webhook = $this->projectMetadataModel->get($project['id'], 'mattermost_webhook_url', $this->configModel->get('mattermost_webhook_url'));
+        $channel = $this->projectMetadataModel->get($project['id'], 'mattermost_webhook_channel');
 
         if (! empty($webhook)) {
             $this->sendMessage($webhook, $channel, $project, $event_name, $event_data);
@@ -50,24 +50,25 @@ class Mattermost extends Base implements NotificationInterface
      * @param  array     $project
      * @param  string    $event_name
      * @param  array     $event_data
+     * @return array
      */
     public function getMessage(array $project, $event_name, array $event_data)
     {
         if ($this->userSession->isLogged()) {
             $author = $this->helper->user->getFullname();
-            $title = $this->notification->getTitleWithAuthor($author, $event_name, $event_data);
+            $title = $this->notificationModel->getTitleWithAuthor($author, $event_name, $event_data);
         } else {
-            $title = $this->notification->getTitleWithoutAuthor($event_name, $event_data);
+            $title = $this->notificationModel->getTitleWithoutAuthor($event_name, $event_data);
         }
 
         $message = '**['.$project['name']."]** ";
         $message .= '_'.$event_data['task']['title']."_\n";
         $message .= $title."\n";
 
-        if ($this->config->get('application_url') !== '') {
+        if ($this->configModel->get('application_url') !== '') {
             $message .= '['.t('View the task on Kanboard').']';
             $message .= '(';
-            $message .= $this->helper->url->to('task', 'show', array('task_id' => $event_data['task']['id'], 'project_id' => $project['id']), '', true);
+            $message .= $this->helper->url->to('TaskViewController', 'show', array('task_id' => $event_data['task']['id'], 'project_id' => $project['id']), '', true);
             $message .= ')';
         }
 
@@ -82,7 +83,7 @@ class Mattermost extends Base implements NotificationInterface
      * Send message to Mattermost
      *
      * @access private
-     * @param  srting    $webhook
+     * @param  string    $webhook
      * @param  string    $channel
      * @param  array     $project
      * @param  string    $event_name
