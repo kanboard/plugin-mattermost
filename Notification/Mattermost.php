@@ -97,6 +97,6 @@ class Mattermost extends Base implements NotificationInterface
             $payload['channel'] = $channel;
         }
 
-        $this->httpClient->postJson($webhook, $payload);
+        $this->httpClient->postJsonAsync($webhook, $payload);
     }
 }
