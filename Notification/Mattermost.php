@@ -18,10 +18,10 @@ class Mattermost extends Base implements NotificationInterface
      *
      * @access public
      * @param  array     $user
-     * @param  string    $event_name
-     * @param  array     $event_data
+     * @param  string    $eventName
+     * @param  array     $eventData
      */
-    public function notifyUser(array $user, $event_name, array $event_data)
+    public function notifyUser(array $user, $eventName, array $eventData)
     {
     }
 
