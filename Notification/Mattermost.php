@@ -62,15 +62,15 @@ class Mattermost extends Base implements NotificationInterface
         }
 
         $message = '**['.$project['name']."]** ";
-        $message .= '_'.$event_data['task']['title']."_\n";
-        $message .= $title."\n";
 
         if ($this->configModel->get('application_url') !== '') {
-            $message .= '['.t('View the task on Kanboard').']';
+            $message .= '['.t($event_data['task']['title']."\n").']';
             $message .= '(';
             $message .= $this->helper->url->to('TaskViewController', 'show', array('task_id' => $event_data['task']['id'], 'project_id' => $project['id']), '', true);
             $message .= ')';
         }
+
+        $message .= $title."\n";
 
         return array(
             'text' => $message,
