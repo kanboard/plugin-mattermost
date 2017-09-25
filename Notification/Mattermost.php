@@ -56,21 +56,18 @@ class Mattermost extends Base implements NotificationInterface
     {
         if ($this->userSession->isLogged()) {
             $author = $this->helper->user->getFullname();
-            $title = $this->notificationModel->getTitleWithAuthor($author, $event_name, $event_data);
+            $event_data['title'] = $this->notificationModel->getTitleWithAuthor($author, $event_name, $event_data);
         } else {
-            $title = $this->notificationModel->getTitleWithoutAuthor($event_name, $event_data);
+            $event_data['title'] = $this->notificationModel->getTitleWithoutAuthor($event_name, $event_data);
         }
 
-        $message = '**['.$project['name']."]** ";
-        $message .= '_'.$event_data['task']['title']."_\n";
-        $message .= $title."\n";
+        $event_data['project'] = $project;
 
         if ($this->configModel->get('application_url') !== '') {
-            $message .= '['.t('View the task on Kanboard').']';
-            $message .= '(';
-            $message .= $this->helper->url->to('TaskViewController', 'show', array('task_id' => $event_data['task']['id'], 'project_id' => $project['id']), '', true);
-            $message .= ')';
+            $event_data['url'] = $this->helper->url->to('TaskViewController', 'show', array('task_id' => $event_data['task']['id'], 'project_id' => $project['id']), '', true);
         }
+
+        $message = $this->template->render('mattermost:notification/mattermost', $event_data);
 
         return array(
             'text' => $message,
