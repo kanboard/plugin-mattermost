@@ -6,7 +6,7 @@
     <?= $this->form->label(t('Channel/Group/User (Optional)'), 'mattermost_webhook_channel') ?>
     <?= $this->form->text('mattermost_webhook_channel', $values, array(), array('placeholder="channel"')) ?>
 
-    <p class="form-help"><a href="https://kanboard.net/plugin/mattermost" target="_blank"><?= t('Help on Mattermost integration') ?></a></p>
+    <p class="form-help"><a href="https://github.com/kanboard/plugin-mattermost/blob/master/README.md" target="_blank"><?= t('Help on Mattermost integration') ?></a></p>
 
     <div class="form-actions">
         <input type="submit" value="<?= t('Save') ?>" class="btn btn-blue"/>

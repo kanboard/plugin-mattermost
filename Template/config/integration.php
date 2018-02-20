@@ -3,7 +3,7 @@
     <?= $this->form->label(t('Webhook URL'), 'mattermost_webhook_url') ?>
     <?= $this->form->text('mattermost_webhook_url', $values) ?>
 
-    <p class="form-help"><a href="https://kanboard.net/plugin/mattermost" target="_blank"><?= t('Help on Mattermost integration') ?></a></p>
+    <p class="form-help"><a href="https://github.com/kanboard/plugin-mattermost/blob/master/README.md" target="_blank"><?= t('Help on Mattermost integration') ?></a></p>
 
     <div class="form-actions">
         <input type="submit" value="<?= t('Save') ?>" class="btn btn-blue"/>

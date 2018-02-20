@@ -75,7 +75,7 @@ class Mattermost extends Base implements NotificationInterface
         return array(
             'text' => $message,
             'username' => 'Kanboard',
-            'icon_url' => 'https://kanboard.net/assets/img/favicon.png',
+            'icon_url' => 'https://kanboard.org/assets/img/favicon.png',
         );
     }
 
