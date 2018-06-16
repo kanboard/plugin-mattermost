@@ -1,7 +1,7 @@
 <?php
 
 return array(
-    // 'Help on Mattermost integration' => '',
-    // 'Channel/Group/User (Optional)' => '',
+    'Help on Mattermost integration' => 'Súgó a Mattermost integráláshoz',
+    'Channel/Group/User (Optional)' => 'Csatorna/csoport/felhasználó (opcionális)',
 );
 
